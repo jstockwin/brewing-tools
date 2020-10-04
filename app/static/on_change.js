@@ -22,6 +22,11 @@ var on_change = function () {
   if (final_gravity) {
     $("#final_gravity").html(final_gravity);
   }
+  // Note: This is the approximate formula
+  var abv = (original_gravity - final_gravity) * 131.25;
+  if (abv) {
+    $("#abv").html(abv);
+  }
   // Calculate IBU
   // TODO: Boil time is the actual time that it boils for. We should actually ask
   // for the total boil time and the addition time, and then calculate the boil
