@@ -18,7 +18,7 @@ var on_change = function () {
   }
   // Calculate final gravity
   var final_gravity =
-    1 + (original_gravity * (1 - data.yeast.attenuation / 100)) / 1000;
+    1 + (original_gravity_points * (1 - data.yeast.attenuation / 100)) / 1000;
   if (final_gravity) {
     $("#final_gravity").html(final_gravity);
   }

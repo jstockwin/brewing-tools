@@ -118,6 +118,6 @@ $("#form").alpaca({
         on_change();
       });
     }
-    on_change()
+    on_change();
   },
 });
