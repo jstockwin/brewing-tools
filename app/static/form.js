@@ -87,6 +87,24 @@ $("#form").alpaca({
       },
     },
   },
+  // TODO: Needs lots of improvement...
+  view: {
+    parent: "bootstrap-create",
+    fields: {
+      "/malts": {
+        templates: {
+          "container-object":
+            "<script type='text/x-handlebars-template'><div class='container-fluid'><div class='row'>{{#each items}}<div class='col-xs-3'>{{#item}}{{/item}}</div>{{/each}}</div></div></script>",
+        },
+      },
+      "/hops": {
+        templates: {
+          "container-object":
+            "<script type='text/x-handlebars-template'><div class='container-fluid'><div class='row'>{{#each items}}<div class='col-xs-3'>{{#item}}{{/item}}</div>{{/each}}</div></div></script>",
+        },
+      },
+    },
+  },
   postRender: function (control) {
     for (i = 0; i < control.children.length; i++) {
       control.children[i].on("change", function () {
