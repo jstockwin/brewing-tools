@@ -32,6 +32,20 @@
   </head>
   <body>
     <div id="form"></div>
+    <table class="table">
+      <tr>
+        <td>Original Gravity</td>
+        <td id="original_gravity"></td>
+      </tr>
+      <tr>
+        <td>Final Gravity</td>
+        <td id="final_gravity"></td>
+      </tr>
+      <tr>
+        <td>IBU</td>
+        <td id="ibu"></td>
+      </tr>
+    </table>
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='on_change.js') }}"

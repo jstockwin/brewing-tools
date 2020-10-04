@@ -35,7 +35,7 @@ $("#form").alpaca({
               type: "string",
             },
             quantity: {
-              title: "Quantity (oz)",
+              title: "Quantity (g)",
               type: "number",
             },
             alpha: {

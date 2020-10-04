@@ -14,13 +14,13 @@ var on_change = function () {
     (gravity_points * mash_efficiency) / post_boil_volume_gallons;
   var original_gravity = (original_gravity_points + 1000) / 1000;
   if (original_gravity > 0) {
-    console.log("OG: " + original_gravity);
+    $("#original_gravity").html(original_gravity);
   }
   // Calculate final gravity
   var final_gravity =
     1 + (original_gravity * (1 - data.yeast.attenuation / 100)) / 1000;
   if (final_gravity) {
-    console.log("FG: " + final_gravity);
+    $("#final_gravity").html(final_gravity);
   }
   // Calculate IBU
   // TODO: Boil time is the actual time that it boils for. We should actually ask
@@ -33,11 +33,12 @@ var on_change = function () {
     var hop = hops[i];
     var boil_time_factor = (1 - Math.exp(-0.04 * hop.boil_time)) / 4.15;
     var utilisation = bigness_factor * boil_time_factor;
+    var quantity_ounces = hop.quantity * 0.03527396194958;
     ibu +=
-      (utilisation * ((hop.alpha / 100) * hop.quantity * 7489)) /
+      (utilisation * ((hop.alpha / 100) * quantity_ounces * 7489)) /
       post_boil_volume_gallons;
   }
   if (ibu) {
-    console.log("IBU: " + ibu);
+    $("#ibu").html(ibu);
   }
 };
