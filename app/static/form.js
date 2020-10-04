@@ -93,14 +93,12 @@ $("#form").alpaca({
     fields: {
       "/malts": {
         templates: {
-          "container-object":
-            "<script type='text/x-handlebars-template'><div class='container-fluid'><div class='row'>{{#each items}}<div class='col-xs-3'>{{#item}}{{/item}}</div>{{/each}}</div></div></script>",
+          "container-object": "#malt-template",
         },
       },
       "/hops": {
         templates: {
-          "container-object":
-            "<script type='text/x-handlebars-template'><div class='container-fluid'><div class='row'>{{#each items}}<div class='col-xs-3'>{{#item}}{{/item}}</div>{{/each}}</div></div></script>",
+          "container-object": "#hops-template",
         },
       },
     },
