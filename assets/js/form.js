@@ -1,7 +1,3 @@
-// Version will be stored when a recipe is saved so we can run migrations if anything
-// changes in the data structure.
-var VERSION = 1.0;
-
 var DEFAULT_DATA = {
   title: "My Recipe",
   malts: [{ name: "Example Malt", quantity: 5, specific_gravity: 1.04 }],
@@ -112,13 +108,13 @@ var initialise = function (data) {
           save: {
             title: "Save",
             click: function () {
-              save(this.getValue(), VERSION);
+              save(this.getValue());
             },
           },
           load: {
             title: "Load",
             click: function () {
-              load(VERSION);
+              select_saved();
             },
           },
         },
