@@ -1,1 +1,50 @@
-{{ content }}
+<html>
+  <head>
+    <!-- dependencies (jquery, handlebars and bootstrap) -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.11.1.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"
+    ></script>
+    <link
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+    ></script>
+
+    <!-- alpaca -->
+    <link
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.js"
+    ></script>
+    <!-- alpaca templates -->
+    {% include alpaca/malt.html %} {% include alpaca/hops.html %}
+  </head>
+  <body>
+    {{ content }}
+    <script
+      type="text/javascript"
+      src="{{ "/assets/js/on_change.js" | relative_url }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ "/assets/js/save_and_load.js" | relative_url }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ "/assets/js/form.js" | relative_url }}"
+    ></script>
+  </body>
+</html>

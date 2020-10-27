@@ -2,90 +2,42 @@
 layout: default
 title: "Brewtools - Recipe"
 ---
-<html>
-  <head>
-    <!-- dependencies (jquery, handlebars and bootstrap) -->
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-1.11.1.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"
-    ></script>
-    <link
-      type="text/css"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script
-      type="text/javascript"
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
-    ></script>
-
-    <!-- alpaca -->
-    <link
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.css"
-      rel="stylesheet"
-    />
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.js"
-    ></script>
-    <!-- alpaca templates -->
-    {% include alpaca/malt.html %} {% include alpaca/hops.html %}
-  </head>
-  <body>
-    <div id="form"></div>
-    <table class="table">
-      <tr>
-        <td>Original Gravity</td>
-        <td id="original_gravity"></td>
-      </tr>
-      <tr>
-        <td>Final Gravity</td>
-        <td id="final_gravity"></td>
-      </tr>
-      <tr>
-        <td>ABV</td>
-        <td id="abv"></td>
-      </tr>
-      <tr>
-        <td>IBU</td>
-        <td id="ibu"></td>
-      </tr>
-    </table>
-    <script
-      type="text/javascript"
-      src="{{ "/assets/js/on_change.js" | relative_url }}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{{ "/assets/js/save_and_load.js" | relative_url }}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{{ "/assets/js/form.js" | relative_url }}"
-    ></script>
-    <div id="loadModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Load Recipe</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Click on a recipe below to load it.</p>
-            <ul id="loadRecipeList"></ul>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
+<div id="form"></div>
+  <table class="table">
+  <tr>
+    <td>Original Gravity</td>
+    <td id="original_gravity"></td>
+  </tr>
+  <tr>
+    <td>Final Gravity</td>
+    <td id="final_gravity"></td>
+  </tr>
+  <tr>
+    <td>ABV</td>
+    <td id="abv"></td>
+  </tr>
+  <tr>
+    <td>IBU</td>
+    <td id="ibu"></td>
+  </tr>
+</table>
+<div id="loadModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Load Recipe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Click on a recipe below to load it.</p>
+        <ul id="loadRecipeList"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+
