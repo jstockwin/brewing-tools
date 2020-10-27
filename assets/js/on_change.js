@@ -1,5 +1,5 @@
 var on_change = function () {
-  var data = $("#form").alpaca("get").getValue();
+  var data = $("#recipeForm").alpaca("get").getValue();
   // Calculate original gravity
   var malts = data.malts;
   var gravity_points = 0;

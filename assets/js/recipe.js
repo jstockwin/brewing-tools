@@ -111,6 +111,12 @@ var initialise = function (data) {
               save(this.getValue());
             },
           },
+          log_data: {
+            title: "Log Data",
+            click: function () {
+              log_data(this.getValue());
+            },
+          },
           load: {
             title: "Load",
             click: function () {
@@ -147,6 +153,6 @@ var initialise = function (data) {
     },
   };
 
-  $("#form").alpaca(config);
+  $("#recipeForm").alpaca(config);
 };
 initialise();

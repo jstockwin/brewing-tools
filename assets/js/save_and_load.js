@@ -15,8 +15,23 @@ var save_titles = function (titles) {
   );
 };
 
-var save = function (data) {
+var encode_data = function (data) {
   data.version = VERSION;
+  var encoded_data = btoa(JSON.stringify(data));
+  return encoded_data;
+};
+
+var decode_data = function (encoded_data) {
+  var data = JSON.parse(atob(encoded_data));
+  if (data.version != VERSION) {
+    // Add migration logic here if version changes.
+    alert("Something went wrong recovering the save.");
+    return;
+  }
+  return data
+}
+
+var save = function (data) {
   var title = data.title;
   var titles = get_titles();
 
@@ -28,7 +43,7 @@ var save = function (data) {
       return;
     }
   }
-  var encoded_data = btoa(JSON.stringify(data));
+  encode_data = encode_data(data);
   window.localStorage.setItem(title, encoded_data);
 
   titles.add(title);
@@ -71,12 +86,11 @@ var delete_saved = function (title) {
 var load = function (title) {
   $("#loadModal").modal("hide");
   var encoded_data = window.localStorage.getItem(title);
-  var data = JSON.parse(atob(encoded_data));
-  if (data.version != VERSION) {
-    // Add migration logic here if version changes.
-    alert("Something went wrong recovering the save.");
-    return;
-  }
-  $("#form").alpaca("destroy");
+  data = decode_data(encoded_data);
+  $("#recipeForm").alpaca("destroy");
   initialise(data);
+};
+
+var log_data = function (data) {
+  console.log(encode_data(data));
 };
