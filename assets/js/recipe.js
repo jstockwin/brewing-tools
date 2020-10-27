@@ -4,6 +4,7 @@ var DEFAULT_DATA = {
   hops: [{ name: "Example Hop", alpha: 7.5, quantity: 100, boil_time: 60 }],
   yeast: { name: "Example Yeast", attenuation: 75 },
   expected_mash_efficiency: 75,
+  total_boil_time: 60,
   post_boil_volume: 22,
 };
 
@@ -88,6 +89,11 @@ var initialise = function (data) {
           minimum: 0,
           maximum: 100,
         },
+        total_boil_time: {
+          type: "number",
+          title: "Total Boil Time (mins)",
+          minimum: 0,
+        },
         post_boil_volume: {
           type: "number",
           title: "Expected post-boil volume (L)",
@@ -105,22 +111,28 @@ var initialise = function (data) {
       },
       form: {
         buttons: {
+          get_link: {
+            title: "Get Link",
+            click: function () {
+              get_link(this.getValue());
+            },
+          },
           save: {
             title: "Save",
             click: function () {
               save(this.getValue());
             },
           },
-          log_data: {
-            title: "Log Data",
-            click: function () {
-              log_data(this.getValue());
-            },
-          },
           load: {
             title: "Load",
             click: function () {
               select_saved();
+            },
+          },
+          brew: {
+            title: "Brew with this recipe",
+            click: function () {
+              brew(this.getValue());
             },
           },
         },
@@ -148,6 +160,15 @@ var initialise = function (data) {
         control.children[i].on("change", function () {
           on_change();
         });
+        control.children[i].on("move", function () {
+          on_change();
+        });
+        control.children[i].on("add", function () {
+          on_change();
+        });
+        control.children[i].on("remove", function () {
+          on_change();
+        });
       }
       on_change();
     },
@@ -155,4 +176,12 @@ var initialise = function (data) {
 
   $("#recipeForm").alpaca(config);
 };
-initialise();
+
+if ($("#recipeForm").length) {
+  var data;
+  var match = window.location.search.match(/(\?|&)data\=([^&]*)/);
+  if (match) {
+    data = decode_data(match[2]);
+  }
+  initialise(data);
+}

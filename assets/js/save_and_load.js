@@ -28,8 +28,8 @@ var decode_data = function (encoded_data) {
     alert("Something went wrong recovering the save.");
     return;
   }
-  return data
-}
+  return data;
+};
 
 var save = function (data) {
   var title = data.title;
@@ -43,7 +43,7 @@ var save = function (data) {
       return;
     }
   }
-  encode_data = encode_data(data);
+  encoded_data = encode_data(data);
   window.localStorage.setItem(title, encoded_data);
 
   titles.add(title);
@@ -91,6 +91,10 @@ var load = function (title) {
   initialise(data);
 };
 
-var log_data = function (data) {
-  console.log(encode_data(data));
+var get_link = function (data) {
+  console.log(window.location.href + "?data=" + encode_data(data));
+};
+
+var brew = function (data) {
+  window.location.href = "/log?data=" + encode_data(data);
 };
