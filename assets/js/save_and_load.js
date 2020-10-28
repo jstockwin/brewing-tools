@@ -6,32 +6,32 @@ var VERSION = 1.0;
 
 var brewing_proto = protobuf.load("assets/brewing.proto");
 
-var get_recipe_proto = async function () {
+var getRecipeProto = async function () {
   var root = await brewing_proto;
   return root.lookupType("Recipe");
 };
 
-var get_titles = function () {
+var getTitles = function () {
   return new Set(JSON.parse(window.localStorage.getItem(TITLE_SAVE_KEY)));
 };
 
-var save_titles = function (titles) {
+var saveTitles = function (titles) {
   window.localStorage.setItem(
     TITLE_SAVE_KEY,
     JSON.stringify(Array.from(titles))
   );
 };
 
-var encode_recipe = async function (data) {
-  var recipe = await get_recipe_proto();
+var encodeRecipe = async function (data) {
+  var recipe = await getRecipeProto();
   data.version = VERSION;
   // TODO: validate data!
   var str_bytes = String.fromCharCode.apply(null, recipe.encode(data).finish());
   return btoa(str_bytes);
 };
 
-var decode_recipe = async function (encoded_data) {
-  var recipe = await get_recipe_proto();
+var decodeRecipe = async function (encoded_data) {
+  var recipe = await getRecipeProto();
   decoded_payload = atob(encoded_data);
   var buffer = new Uint8Array(decoded_payload.length);
   for (var i = 0; i < decoded_payload.length; i++) {
@@ -43,7 +43,7 @@ var decode_recipe = async function (encoded_data) {
 
 var save = async function (data) {
   var title = data.title;
-  var titles = get_titles();
+  var titles = getTitles();
 
   if (titles.has(title)) {
     var confirmation = confirm(
@@ -53,61 +53,61 @@ var save = async function (data) {
       return;
     }
   }
-  encoded_data = await encode_recipe(data);
+  encoded_data = await encodeRecipe(data);
   window.localStorage.setItem(title, encoded_data);
 
   titles.add(title);
-  save_titles(titles);
+  saveTitles(titles);
 };
 
-var populate_modal = function () {
-  var titles = get_titles();
+var populateModal = function () {
+  var titles = getTitles();
   var recipeList = $("#loadRecipeList");
   recipeList.empty();
   for (let title of titles) {
     recipeList.append(
       `<li>\
         <a onClick=\"load('${title}')\">${title}</a> \
-        (<a class="text-danger" onClick=\"delete_saved('${title}')\">delete</a>)\
+        (<a class="text-danger" onClick=\"deleteSaved('${title}')\">delete</a>)\
       </li>`
     );
   }
 };
 
-var select_saved = function () {
-  populate_modal();
+var selectSaved = function () {
+  populateModal();
   $("#loadModal").modal("show");
 };
 
-var delete_saved = function (title) {
+var deleteSaved = function (title) {
   var confirmation = confirm(
     "This will delete this recipe, and cannot be undone. Do you want to continue?"
   );
   if (!confirmation) {
     return;
   }
-  titles = get_titles();
+  titles = getTitles();
   titles.delete(title);
-  save_titles(titles);
+  saveTitles(titles);
   window.localStorage.removeItem(title);
-  populate_modal();
+  populateModal();
 };
 
 var load = async function (title) {
   $("#loadModal").modal("hide");
   var encoded_data = window.localStorage.getItem(title);
-  data = await decode_recipe(encoded_data);
+  data = await decodeRecipe(encoded_data);
   $("#recipeForm").alpaca("destroy");
   console.log(data);
   initialise(data);
 };
 
-var get_link = async function (data) {
-  encoded_data = await encode_recipe(data);
+var getLink = async function (data) {
+  encoded_data = await encodeRecipe(data);
   console.log(window.location.href + "?data=" + encoded_data);
 };
 
 var brew = async function (data) {
-  encoded_data = await encode_recipe(data);
+  encoded_data = await encodeRecipe(data);
   window.location.href = "/log?data=" + encoded_data;
 };

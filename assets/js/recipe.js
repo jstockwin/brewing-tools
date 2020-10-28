@@ -1,11 +1,11 @@
 var DEFAULT_DATA = {
   title: "My Recipe",
-  malts: [{ name: "Example Malt", quantity: 5, specific_gravity: 1.04 }],
-  hops: [{ name: "Example Hop", alpha: 7.5, quantity: 100, boil_time: 60 }],
+  malts: [{ name: "Example Malt", quantity: 5, specificGravity: 1.04 }],
+  hops: [{ name: "Example Hop", alpha: 7.5, quantity: 100, boilTime: 60 }],
   yeast: { name: "Example Yeast", attenuation: 75 },
-  expected_mash_efficiency: 75,
-  total_boil_time: 60,
-  post_boil_volume: 22,
+  expectedMashEfficiency: 75,
+  totalBoilTime: 60,
+  postBoilVolume: 22,
 };
 
 var initialise = function (data) {
@@ -35,7 +35,7 @@ var initialise = function (data) {
                 title: "Quantity (kg)",
                 type: "number",
               },
-              specific_gravity: {
+              specificGravity: {
                 title: "Specific Gravity",
                 type: "number",
               },
@@ -60,7 +60,7 @@ var initialise = function (data) {
                 title: "Alpha",
                 type: "number",
               },
-              boil_time: {
+              boilTime: {
                 title: "Boil Time (mins)",
                 type: "number",
               },
@@ -83,18 +83,18 @@ var initialise = function (data) {
             },
           },
         },
-        expected_mash_efficiency: {
+        expectedMashEfficiency: {
           type: "number",
           title: "Expected Mash Efficiency (%)",
           minimum: 0,
           maximum: 100,
         },
-        total_boil_time: {
+        totalBoilTime: {
           type: "number",
           title: "Total Boil Time (mins)",
           minimum: 0,
         },
-        post_boil_volume: {
+        postBoilVolume: {
           type: "number",
           title: "Expected post-boil volume (L)",
           minimum: 0,
@@ -111,10 +111,10 @@ var initialise = function (data) {
       },
       form: {
         buttons: {
-          get_link: {
+          getLink: {
             title: "Get Link",
             click: function () {
-              get_link(this.getValue());
+              getLink(this.getValue());
             },
           },
           save: {
@@ -126,7 +126,7 @@ var initialise = function (data) {
           load: {
             title: "Load",
             click: function () {
-              select_saved();
+              selectSaved();
             },
           },
           brew: {
@@ -181,7 +181,7 @@ if ($("#recipeForm").length) {
   var data;
   var match = window.location.search.match(/(\?|&)data\=([^&]*)/);
   if (match) {
-    decode_recipe(match[2]).then(function (data) {
+    decodeRecipe(match[2]).then(function (data) {
       initialise(data);
     });
   } else {

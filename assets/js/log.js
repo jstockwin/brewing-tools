@@ -1,8 +1,8 @@
-var get_initial_data = function (data) {
+var getInitialData = function (data) {
   var additions = data.hops.map((hop) => {
     return {
       description: hop.name + " (" + hop.quantity + "g)",
-      addition_time: data.total_boil_time - hop.boil_time,
+      addition_time: data.totalBoilTime - hop.boilTime,
     };
   });
   return {
@@ -11,8 +11,8 @@ var get_initial_data = function (data) {
   };
 };
 
-var initialise_log = function (data) {
-  initial_data = get_initial_data(data);
+var initialiseLog = function (data) {
+  initial_data = getInitialData(data);
 
   $("#logForm").alpaca({
     schema: {
@@ -63,8 +63,8 @@ var initialise_log = function (data) {
 if ($("#logForm").length) {
   var match = window.location.search.match(/(\?|&)data\=([^&]*)/);
   if (match) {
-    decode_recipe(match[2]).then(function (data) {
-      initialise_log(data);
+    decodeRecipe(match[2]).then(function (data) {
+      initialiseLog(data);
     });
   } else {
     // TODO: If there is no data we should ask for a recipe link?

@@ -6,12 +6,12 @@ var on_change = function () {
   for (var i = 0; i < malts.length; i++) {
     var malt = malts[i];
     gravity_points +=
-      (malt.specific_gravity * 1000 - 1000) * malt.quantity * 2.20462262185;
+      (malt.specificGravity * 1000 - 1000) * malt.quantity * 2.20462262185;
   }
-  var mash_efficiency = data.expected_mash_efficiency / 100;
-  var post_boil_volume_gallons = data.post_boil_volume * 0.219969;
+  var mash_efficiency = data.expectedMashEfficiency / 100;
+  var postBoilVolume_gallons = data.postBoilVolume * 0.219969;
   var original_gravity_points =
-    (gravity_points * mash_efficiency) / post_boil_volume_gallons;
+    (gravity_points * mash_efficiency) / postBoilVolume_gallons;
   var original_gravity = (original_gravity_points + 1000) / 1000;
   if (original_gravity > 0) {
     $("#original_gravity").html(original_gravity);
@@ -36,12 +36,12 @@ var on_change = function () {
   var ibu = 0;
   for (var i = 0; i < hops.length; i++) {
     var hop = hops[i];
-    var boil_time_factor = (1 - Math.exp(-0.04 * hop.boil_time)) / 4.15;
-    var utilisation = bigness_factor * boil_time_factor;
+    var boilTime_factor = (1 - Math.exp(-0.04 * hop.boilTime)) / 4.15;
+    var utilisation = bigness_factor * boilTime_factor;
     var quantity_ounces = hop.quantity * 0.03527396194958;
     ibu +=
       (utilisation * ((hop.alpha / 100) * quantity_ounces * 7489)) /
-      post_boil_volume_gallons;
+      postBoilVolume_gallons;
   }
   if (ibu) {
     $("#ibu").html(ibu);
