@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+
+message Recipe {
+    int32 version = 1;
+    string title = 2;
+    repeated Malt malts = 3;
+    repeated Hop hops = 4;
+    Yeast yeast = 5;
+    float expected_mash_efficiency = 6;
+    float total_boil_time = 7;
+    float post_boil_volume = 8;
+}
+
+
+message Malt {
+    string name = 1;
+    float quantity = 2;
+    float specific_gravity = 3;
+}
+
+message Hop {
+    string name = 1;
+    float quantity = 2;
+    float alpha = 3;
+    float boil_time = 4;
+}
+
+message Yeast {
+    string name = 1;
+    float quantity = 2;
+}

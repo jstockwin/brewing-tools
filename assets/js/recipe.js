@@ -181,7 +181,10 @@ if ($("#recipeForm").length) {
   var data;
   var match = window.location.search.match(/(\?|&)data\=([^&]*)/);
   if (match) {
-    data = decode_data(match[2]);
+    decode_recipe(match[2]).then(function (data) {
+      initialise(data);
+    });
+  } else {
+    initialise();
   }
-  initialise(data);
 }

@@ -63,11 +63,12 @@ var initialise_log = function (data) {
 if ($("#logForm").length) {
   var match = window.location.search.match(/(\?|&)data\=([^&]*)/);
   if (match) {
-    data = decode_data(match[2]);
+    decode_recipe(match[2]).then(function (data) {
+      initialise_log(data);
+    });
   } else {
     // TODO: If there is no data we should ask for a recipe link?
     // OR: We could give them a list of their saved recipes?
     alert("You need a recipe to start a log");
   }
-  initialise_log(data);
 }

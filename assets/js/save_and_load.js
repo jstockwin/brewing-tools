@@ -4,6 +4,13 @@ var TITLE_SAVE_KEY = "titles"; // TODO: Change?
 // changes in the data structure.
 var VERSION = 1.0;
 
+var brewing_proto = protobuf.load("assets/brewing.proto");
+
+var get_recipe_proto = async function () {
+  var root = await brewing_proto;
+  return root.lookupType("Recipe");
+};
+
 var get_titles = function () {
   return new Set(JSON.parse(window.localStorage.getItem(TITLE_SAVE_KEY)));
 };
@@ -15,23 +22,26 @@ var save_titles = function (titles) {
   );
 };
 
-var encode_data = function (data) {
+var encode_recipe = async function (data) {
+  var recipe = await get_recipe_proto();
   data.version = VERSION;
-  var encoded_data = btoa(JSON.stringify(data));
-  return encoded_data;
+  // TODO: validate data!
+  var str_bytes = String.fromCharCode.apply(null, recipe.encode(data).finish());
+  return btoa(str_bytes);
 };
 
-var decode_data = function (encoded_data) {
-  var data = JSON.parse(atob(encoded_data));
-  if (data.version != VERSION) {
-    // Add migration logic here if version changes.
-    alert("Something went wrong recovering the save.");
-    return;
+var decode_recipe = async function (encoded_data) {
+  var recipe = await get_recipe_proto();
+  decoded_payload = atob(encoded_data);
+  var buffer = new Uint8Array(decoded_payload.length);
+  for (var i = 0; i < decoded_payload.length; i++) {
+    buffer[i] = decoded_payload.charCodeAt(i);
   }
-  return data;
+  // TODO: Handle different versions?
+  return recipe.decode(buffer);
 };
 
-var save = function (data) {
+var save = async function (data) {
   var title = data.title;
   var titles = get_titles();
 
@@ -43,7 +53,7 @@ var save = function (data) {
       return;
     }
   }
-  encoded_data = encode_data(data);
+  encoded_data = await encode_recipe(data);
   window.localStorage.setItem(title, encoded_data);
 
   titles.add(title);
@@ -83,18 +93,21 @@ var delete_saved = function (title) {
   populate_modal();
 };
 
-var load = function (title) {
+var load = async function (title) {
   $("#loadModal").modal("hide");
   var encoded_data = window.localStorage.getItem(title);
-  data = decode_data(encoded_data);
+  data = await decode_recipe(encoded_data);
   $("#recipeForm").alpaca("destroy");
+  console.log(data);
   initialise(data);
 };
 
-var get_link = function (data) {
-  console.log(window.location.href + "?data=" + encode_data(data));
+var get_link = async function (data) {
+  encoded_data = await encode_recipe(data);
+  console.log(window.location.href + "?data=" + encoded_data);
 };
 
-var brew = function (data) {
-  window.location.href = "/log?data=" + encode_data(data);
+var brew = async function (data) {
+  encoded_data = await encode_recipe(data);
+  window.location.href = "/log?data=" + encoded_data;
 };
